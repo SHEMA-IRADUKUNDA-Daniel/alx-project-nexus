@@ -1,10 +1,14 @@
+"use client";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import Search from "../common/Search";
 import { useRouter } from "next/router";
 import { HeaderProps } from "@/interfaces";
+import useMovieStore from "../common/store";
 
 export default function Header({ onLoginClick }: HeaderProps) {
+  const search = useMovieStore((state) => state.searchMovie);
+  const setSearchMovie = useMovieStore((state) => state.setSearchMovie);
   const router = useRouter();
 
   function goToWelcome() {
@@ -13,12 +17,10 @@ export default function Header({ onLoginClick }: HeaderProps) {
     }, 1000);
   }
 
-  // States for each dropdown
   const [countryOpen, setCountryOpen] = useState(false);
   const [moviesOpen, setMoviesOpen] = useState(false);
   const [tvOpen, setTvOpen] = useState(false);
 
-  // Refs to close dropdowns on outside click
   const countryRef = useRef<HTMLLIElement>(null);
   const moviesRef = useRef<HTMLLIElement>(null);
   const tvRef = useRef<HTMLLIElement>(null);
@@ -43,12 +45,11 @@ export default function Header({ onLoginClick }: HeaderProps) {
   }, []);
 
   return (
-    <header className="w-full bg-gray-800 text-white shadow-lg">
+    <header className="w-full bg-gray-800 text-white shadow-lg z-10">
       <div className="flex flex-row items-center justify-between px-6 py-4 max-w-7xl mx-auto gap-10">
         <button className="flex-shrink-0 cursor-pointer" onClick={goToWelcome}>
           <h1 className="text-2xl font-bold text-blue-500">Movie App</h1>
         </button>
-
         <nav className="hidden md:flex flex-1 justify-center">
           <ul className="flex flex-row space-x-8">
             <li>
@@ -111,19 +112,11 @@ export default function Header({ onLoginClick }: HeaderProps) {
                 </ul>
               )}
             </li>
-
-            <li>
-              <Link
-                href="/Favorite"
-                className="hover:text-blue-500 transition-colors duration-200 cursor-pointer"
-              >
-                Favorites
-              </Link>
-            </li>
           </ul>
         </nav>
-
         <Search
+          value={search}
+          onChange={setSearchMovie}
           className="w-64 relative hidden md:flex"
           placeholder="Search movies..."
           rightContent={
@@ -167,4 +160,5 @@ export default function Header({ onLoginClick }: HeaderProps) {
       </div>
     </header>
   );
+  console.log(search);
 }

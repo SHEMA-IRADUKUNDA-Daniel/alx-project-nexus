@@ -5,54 +5,18 @@ export default function Footer() {
   return (
     <footer className="w-full bg-gray-800 text-white shadow-inner relative">
       <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0">
-        {/* Brand / short description */}
         <div>
           <h2 className="text-2xl font-bold text-blue-500">Movie App</h2>
           <p className="mt-2 text-sm text-gray-400 max-w-100">
             <strong className="text-blue-500">Movie App</strong> - Free movies
             online, here you can watch movies online in high quality for free
             without annoying of advertising, just come and enjoy your movies
-            online. fmovie, fmovies, bmovies Disclaimer: This site does not
-            store any files on its server. All contents are provided by
+            online. movie app, movies app, app movies Disclaimer: This site does
+            not store any files on its server. All contents are provided by
             non-affiliated third parties.
           </p>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
-          <Link
-            href="/"
-            className="hover:text-blue-500 transition-colors duration-200"
-          >
-            Home
-          </Link>
-          <Link
-            href="/genres"
-            className="hover:text-blue-500 transition-colors duration-200"
-          >
-            Genres
-          </Link>
-          <Link
-            href="/country"
-            className="hover:text-blue-500 transition-colors duration-200"
-          >
-            Country
-          </Link>
-          <Link
-            href="/movies"
-            className="hover:text-blue-500 transition-colors duration-200"
-          >
-            Movies
-          </Link>
-          <Link
-            href="/tv-series"
-            className="hover:text-blue-500 transition-colors duration-200"
-          >
-            TV-Series
-          </Link>
-        </nav>
-
-        {/* Social icons */}
         <div className="flex space-x-4 justify-center">
           <a href="#" className="hover:text-blue-500" aria-label="Twitter">
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -67,7 +31,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom line */}
       <div className="mt-6 border-t border-gray-700 pt-4 text-center text-sm text-gray-400">
         © {new Date().getFullYear()} Movie App. All rights reserved.
       </div>
