@@ -1,0 +1,45 @@
+import useMovieStore from "./store";
+import React from "react";
+import Image from "next/image";
+
+export default function MovieCard() {
+  // const movies = useMovieStore((state) => state.movies);
+  const movies = useMovieStore((state) => state.movies);
+  console.log(movies);
+
+  return (
+    <div className="flex flex-wrap ">
+      {movies.map((movie) => (
+        <div key={movie.id} className=" my-2 mx-2 max-w-40 relative">
+          <div className="relative">
+            <Image
+              src={movie.image}
+              alt="poster"
+              width={200}
+              height={250}
+              className="object-fill rounded-sm"
+            />
+            <p className="absolute top-1 right-1 bg-white rounded-sm text-xs p-1">
+              {movie.quality}
+            </p>
+            <div className="absolute inset-0  flex items-center justify-center">
+              <Image
+                src="/PlayButton.svg"
+                alt="Play"
+                width={40}
+                height={40}
+                className="pointer-events-none"
+              />
+            </div>
+          </div>
+          <h2 className=" font-bold text-black mt-3">{movie.title}</h2>
+          <div className="flex gap-2 text-xs  text-gray-900 font-medium items-center mt-3">
+            <p>{movie.year}</p>
+            <p>-</p>
+            <p>{movie.duration} min</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
