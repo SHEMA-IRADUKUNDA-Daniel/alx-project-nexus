@@ -25,3 +25,24 @@ export interface RegisterModalProps {
   onClose: () => void;
   onLoginClick: () => void;
 }
+
+export interface Movie {
+  id: number;
+  title: string;
+  year: number;
+  duration: number;
+  quality: string;
+  image: string;
+}
+export interface MovieStore {
+  movies: Movie[];
+  searchMovie: string;
+  // filteredMovies: Movie[];
+  setSearchMovie: (search: string) => void;
+}
+
+export interface WatchButtonProp {
+  title: string;
+  className: string;
+  onClick: () => void;
+}

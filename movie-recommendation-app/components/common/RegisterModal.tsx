@@ -24,27 +24,17 @@ export default function RegisterModal({
 
         <form className="space-y-4">
           <label htmlFor="text"> Full Name</label>
-          <input
-            type="text"
-            // placeholder="Full Name"
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+          <input type="text" className="w-full px-4 py-2 border rounded-lg" />
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            // placeholder="Email"
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+          <input type="email" className="w-full px-4 py-2 border rounded-lg" />
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            // placeholder="Password"
             className="w-full px-4 py-2 border rounded-lg"
           />
           <label htmlFor="password">Confirm Password</label>
           <input
             type="password"
-            // placeholder="Confirm Password"
             className="w-full px-4 py-2 border rounded-lg"
           />
           <button

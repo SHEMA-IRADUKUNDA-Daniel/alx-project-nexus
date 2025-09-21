@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchProps } from "@/interfaces";
+
 export default function Search({
   value,
   onChange,
