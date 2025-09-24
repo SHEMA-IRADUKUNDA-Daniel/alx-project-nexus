@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { MovieStore } from "@/interfaces";
-const baseMovies = [
+export const baseMovies = [
   {
     id: 1,
     title: "Inception",
@@ -8,6 +8,10 @@ const baseMovies = [
     duration: 148,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A skilled thief enters dreams to steal secrets and faces the challenge of planting an idea.",
+    genre: ["Sci-Fi", "Thriller"],
+    cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page"],
   },
   {
     id: 2,
@@ -16,6 +20,10 @@ const baseMovies = [
     duration: 152,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Batman battles the Joker, who seeks to plunge Gotham into chaos.",
+    genre: ["Action", "Crime", "Drama"],
+    cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
   },
   {
     id: 3,
@@ -24,6 +32,10 @@ const baseMovies = [
     duration: 169,
     quality: "4K",
     image: "/movie.jpg",
+    description:
+      "Explorers travel through a wormhole to find a new home for humanity.",
+    genre: ["Sci-Fi", "Adventure", "Drama"],
+    cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
   },
   {
     id: 4,
@@ -32,6 +44,10 @@ const baseMovies = [
     duration: 136,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A hacker discovers reality is a simulation and joins a rebellion against machines.",
+    genre: ["Sci-Fi", "Action"],
+    cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
   },
   {
     id: 5,
@@ -40,6 +56,10 @@ const baseMovies = [
     duration: 155,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A betrayed Roman general fights for revenge and honor in the arena.",
+    genre: ["Action", "Drama"],
+    cast: ["Russell Crowe", "Joaquin Phoenix", "Connie Nielsen"],
   },
   {
     id: 6,
@@ -48,6 +68,10 @@ const baseMovies = [
     duration: 142,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Two imprisoned men bond over years, finding solace and eventual freedom.",
+    genre: ["Drama"],
+    cast: ["Tim Robbins", "Morgan Freeman", "Bob Gunton"],
   },
   {
     id: 7,
@@ -56,6 +80,10 @@ const baseMovies = [
     duration: 139,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "An insomniac and a soap maker form an underground fight club with unexpected consequences.",
+    genre: ["Drama", "Thriller"],
+    cast: ["Brad Pitt", "Edward Norton", "Helena Bonham Carter"],
   },
   {
     id: 8,
@@ -64,6 +92,10 @@ const baseMovies = [
     duration: 154,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Interwoven stories of crime and redemption in Los Angeles’ underworld.",
+    genre: ["Crime", "Drama"],
+    cast: ["John Travolta", "Samuel L. Jackson", "Uma Thurman"],
   },
   {
     id: 9,
@@ -72,6 +104,10 @@ const baseMovies = [
     duration: 142,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A man with a kind heart witnesses key moments in American history.",
+    genre: ["Drama", "Romance"],
+    cast: ["Tom Hanks", "Robin Wright", "Gary Sinise"],
   },
   {
     id: 10,
@@ -80,6 +116,10 @@ const baseMovies = [
     duration: 178,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A hobbit sets out with allies to destroy a powerful ring of evil.",
+    genre: ["Fantasy", "Adventure"],
+    cast: ["Elijah Wood", "Ian McKellen", "Viggo Mortensen"],
   },
   {
     id: 11,
@@ -88,6 +128,10 @@ const baseMovies = [
     duration: 179,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "The Fellowship is scattered as the battle for Middle-earth intensifies.",
+    genre: ["Fantasy", "Adventure"],
+    cast: ["Elijah Wood", "Viggo Mortensen", "Ian McKellen"],
   },
   {
     id: 12,
@@ -96,6 +140,10 @@ const baseMovies = [
     duration: 201,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "The final confrontation against Sauron decides the fate of Middle-earth.",
+    genre: ["Fantasy", "Adventure"],
+    cast: ["Elijah Wood", "Viggo Mortensen", "Ian McKellen"],
   },
   {
     id: 13,
@@ -104,6 +152,10 @@ const baseMovies = [
     duration: 143,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Earth’s mightiest heroes team up to stop Loki’s invasion of Earth.",
+    genre: ["Action", "Sci-Fi"],
+    cast: ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
   },
   {
     id: 14,
@@ -112,6 +164,10 @@ const baseMovies = [
     duration: 181,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "The Avengers assemble once more to undo Thanos’ devastating snap.",
+    genre: ["Action", "Sci-Fi"],
+    cast: ["Robert Downey Jr.", "Chris Evans", "Mark Ruffalo"],
   },
   {
     id: 15,
@@ -120,6 +176,10 @@ const baseMovies = [
     duration: 126,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A billionaire builds a high-tech suit of armor to become a hero.",
+    genre: ["Action", "Sci-Fi"],
+    cast: ["Robert Downey Jr.", "Gwyneth Paltrow", "Jeff Bridges"],
   },
   {
     id: 16,
@@ -128,6 +188,10 @@ const baseMovies = [
     duration: 134,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "T’Challa returns to Wakanda to claim the throne and face a powerful adversary.",
+    genre: ["Action", "Adventure"],
+    cast: ["Chadwick Boseman", "Michael B. Jordan", "Lupita Nyong'o"],
   },
   {
     id: 17,
@@ -136,6 +200,10 @@ const baseMovies = [
     duration: 115,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A surgeon learns the mystic arts after an accident changes his life.",
+    genre: ["Action", "Fantasy"],
+    cast: ["Benedict Cumberbatch", "Chiwetel Ejiofor", "Rachel McAdams"],
   },
   {
     id: 18,
@@ -144,6 +212,9 @@ const baseMovies = [
     duration: 121,
     quality: "HD",
     image: "/movie.jpg",
+    description: "A group of misfits bands together to protect a powerful orb.",
+    genre: ["Action", "Comedy", "Sci-Fi"],
+    cast: ["Chris Pratt", "Zoe Saldana", "Dave Bautista"],
   },
   {
     id: 19,
@@ -152,6 +223,10 @@ const baseMovies = [
     duration: 123,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A former pilot gains cosmic powers and discovers her true identity.",
+    genre: ["Action", "Sci-Fi"],
+    cast: ["Brie Larson", "Samuel L. Jackson", "Ben Mendelsohn"],
   },
   {
     id: 20,
@@ -160,6 +235,10 @@ const baseMovies = [
     duration: 130,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Thor must escape Sakaar and stop Hela from destroying Asgard.",
+    genre: ["Action", "Adventure", "Comedy"],
+    cast: ["Chris Hemsworth", "Tom Hiddleston", "Cate Blanchett"],
   },
   {
     id: 21,
@@ -168,6 +247,10 @@ const baseMovies = [
     duration: 133,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Peter Parker balances high school life with being Spider-Man.",
+    genre: ["Action", "Adventure"],
+    cast: ["Tom Holland", "Michael Keaton", "Zendaya"],
   },
   {
     id: 22,
@@ -176,8 +259,11 @@ const baseMovies = [
     duration: 148,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Peter seeks Doctor Strange’s help to restore his secret identity, causing multiverse chaos.",
+    genre: ["Action", "Adventure", "Sci-Fi"],
+    cast: ["Tom Holland", "Zendaya", "Benedict Cumberbatch"],
   },
-
   {
     id: 23,
     title: "Ant-Man",
@@ -185,6 +271,10 @@ const baseMovies = [
     duration: 117,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "A thief gains the ability to shrink in scale but increase in strength.",
+    genre: ["Action", "Comedy", "Sci-Fi"],
+    cast: ["Paul Rudd", "Evangeline Lilly", "Michael Douglas"],
   },
   {
     id: 24,
@@ -193,29 +283,33 @@ const baseMovies = [
     duration: 118,
     quality: "HD",
     image: "/movie.jpg",
+    description:
+      "Ant-Man teams with the Wasp to uncover secrets of the quantum realm.",
+    genre: ["Action", "Comedy", "Sci-Fi"],
+    cast: ["Paul Rudd", "Evangeline Lilly", "Michael Peña"],
   },
 ].map((m) => ({
   ...m,
-  likes: 0, // ✅ start with 0 likes
-  comments: [] as string[], // ✅ empty comment list
+  likes: 0,
+  comments: [] as string[],
 }));
 const useMovieStore = create<MovieStore>((set) => ({
-  movies: baseMovies.map((m) => ({ ...m, likes: 0, comments: [] })), // ensure defaults
+  movies: baseMovies.map((m) => ({ ...m, likes: 0, comments: [] })),
   searchMovie: "",
   likedMovies: [],
+  favorites: [],
 
   setSearchMovie: (search) =>
     set((state) => ({
       searchMovie: search,
       movies: state.movies.map((m) => ({
         ...m,
-        // filtering is typically done at selector level, but we can still filter here if desired
       })),
     })),
 
   likeMovie: (id) =>
     set((state) => {
-      if (state.likedMovies.includes(id)) return state; // prevent multiple likes
+      if (state.likedMovies.includes(id)) return state;
       return {
         likedMovies: [...state.likedMovies, id],
         movies: state.movies.map((m) =>
@@ -229,6 +323,14 @@ const useMovieStore = create<MovieStore>((set) => ({
       movies: state.movies.map((m) =>
         m.id === movieId ? { ...m, comments: [...(m.comments ?? []), text] } : m
       ),
+    })),
+  toggleFavorite: (
+    id // NEW
+  ) =>
+    set((state) => ({
+      favorites: state.favorites.includes(id)
+        ? state.favorites.filter((fav) => fav !== id)
+        : [...state.favorites, id],
     })),
 }));
 export default useMovieStore;

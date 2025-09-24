@@ -33,6 +33,9 @@ export interface Movie {
   duration: number;
   quality: string;
   image: string;
+  description: string;
+  genre: string[];
+  cast: string[];
   likes?: number;
   comments: string[];
 }
@@ -43,6 +46,9 @@ export interface MovieStore {
   likeMovie: (id: number) => void;
   commentMovie: (id: number, comment: string) => void;
   likedMovies: number[];
+
+  favorites: number[];
+  toggleFavorite: (id: number) => void;
 }
 
 export interface WatchButtonProp {
@@ -55,3 +61,8 @@ export type Comment = {
   movieId: number;
   text: string;
 };
+export interface AuthStore {
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+}

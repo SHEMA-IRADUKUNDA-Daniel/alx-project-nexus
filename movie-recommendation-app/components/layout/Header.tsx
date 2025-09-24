@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Search from "../common/Search";
 import { useRouter } from "next/router";
 import { HeaderProps } from "@/interfaces";
+
 import useMovieStore from "../common/store";
 
 export default function Header({ onLoginClick }: HeaderProps) {
@@ -19,7 +20,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
 
   const [countryOpen, setCountryOpen] = useState(false);
   const [moviesOpen, setMoviesOpen] = useState(false);
-  const [tvOpen, setTvOpen] = useState(false);
+
   const [profile, setProfile] = useState(false);
 
   const countryRef = useRef<HTMLLIElement>(null);
@@ -38,8 +39,6 @@ export default function Header({ onLoginClick }: HeaderProps) {
         !moviesRef.current.contains(event.target as Node)
       )
         setMoviesOpen(false);
-      if (tvRef.current && !tvRef.current.contains(event.target as Node))
-        setTvOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -151,7 +150,10 @@ export default function Header({ onLoginClick }: HeaderProps) {
           {profile && (
             <div className=" absolute z-10 flex flex-col gap-6 bg-gray-800 border border-blue-500 right-27 rounded-lg mt-5 p-6 font-bold">
               <h1>Hello, Shema Daniel!</h1>
-              <div className="flex  justify-start gap-5  bg-gray-700  rounded-lg p-2  hover:border border-blue-500 cursor-pointer">
+              <Link
+                href={"/profile"}
+                className="flex  justify-start gap-5  bg-gray-700  rounded-lg p-2  hover:border border-blue-500 cursor-pointer"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -167,8 +169,11 @@ export default function Header({ onLoginClick }: HeaderProps) {
                   />
                 </svg>
                 <h1>Profile</h1>
-              </div>
-              <div className="flex justify-start gap-5  bg-gray-700   hover:border border-blue-500 rounded-lg p-2 cursor-pointer">
+              </Link>
+              <Link
+                href={"/favorite"}
+                className="flex justify-start gap-5  bg-gray-700   hover:border border-blue-500 rounded-lg p-2 cursor-pointer"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -189,7 +194,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
                 </svg>
 
                 <h1>Favorites</h1>
-              </div>
+              </Link>
               <div className="flex justify-center align-center rounded-lg p-2 cursor-pointer  hover:border border-blue-500 mt-9">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

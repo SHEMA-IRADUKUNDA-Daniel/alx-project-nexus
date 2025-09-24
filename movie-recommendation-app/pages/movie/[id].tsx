@@ -13,6 +13,8 @@ export default function MovieDetails() {
   const movie = movies.find((m) => m.id === movieId);
   const [commentText, setCommentText] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
+  const { favorites, toggleFavorite } = useMovieStore();
+  const isFavorite = favorites.includes(movieId);
 
   if (!movie) {
     return (
@@ -61,16 +63,32 @@ export default function MovieDetails() {
           <Image
             src={movie.image}
             alt={movie.title}
-            width={400}
-            height={600}
+            width={200}
+            height={400}
             className="rounded-xl shadow-lg object-cover w-full"
           />
         </div>
 
         <div className="md:w-2/3 space-y-6">
           <div className="space-y-2">
-            <p>Released year: {movie.year}</p>
-            <p>Duration: {movie.duration} min</p>
+            <p>
+              <strong>Description:</strong> <span>{movie.description}</span>
+            </p>
+            <p>
+              <strong>Genre:</strong>
+              {""}{" "}
+              <span>
+                {Array.isArray(movie.genre)
+                  ? movie.genre.join(", ")
+                  : movie.genre}
+              </span>
+            </p>
+            <p>
+              <strong>Released year:</strong> <span>{movie.year}</span>
+            </p>
+            <p>
+              <strong>Duration:</strong> <span>{movie.duration}</span> min
+            </p>
           </div>
           <button
             onClick={handleLike}
@@ -103,15 +121,22 @@ export default function MovieDetails() {
               />
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+                className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
               >
                 Post
               </button>
             </form>
           </div>
 
-          <button className="cursor-pointer mt-20 font-bold bg-blue-500 h-10 hover:bg-blue-600 text-white px-5 rounded-full transition-colors duration-200">
-            + Add to favorite
+          <button
+            onClick={() => toggleFavorite(movieId)}
+            className={`px-5 py-2 rounded-full font-semibold  transition-colors ${
+              isFavorite
+                ? "bg-blue-500 text-white  hover:bg-blue-600"
+                : "bg-gray-200 cursor-pointer text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {isFavorite ? "★ Added to Favorites" : "+ Add to Favorites"}
           </button>
         </div>
       </div>

@@ -37,11 +37,11 @@ export default function Banner() {
           Bane—the main villain in this section.
         </p>
 
-        {/* <Button
-          title="Watch Now"
+        <Button
+          title="See More"
           onClick={() => console.log("clicked")}
           className="px-4 py-2 bg-blue-500 text-white cursor-pointer font-bold rounded hover:bg-blue-600"
-        /> */}
+        />
       </div>
     </div>
   );
