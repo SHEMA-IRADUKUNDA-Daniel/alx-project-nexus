@@ -33,12 +33,16 @@ export interface Movie {
   duration: number;
   quality: string;
   image: string;
+  likes?: number;
+  comments: string[];
 }
 export interface MovieStore {
   movies: Movie[];
   searchMovie: string;
-  // filteredMovies: Movie[];
   setSearchMovie: (search: string) => void;
+  likeMovie: (id: number) => void;
+  commentMovie: (id: number, comment: string) => void;
+  likedMovies: number[];
 }
 
 export interface WatchButtonProp {
@@ -46,3 +50,8 @@ export interface WatchButtonProp {
   className: string;
   onClick: () => void;
 }
+
+export type Comment = {
+  movieId: number;
+  text: string;
+};

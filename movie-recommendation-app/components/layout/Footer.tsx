@@ -8,12 +8,12 @@ export default function Footer() {
         <div>
           <h2 className="text-2xl font-bold text-blue-500">Movie App</h2>
           <p className="mt-2 text-sm text-gray-400 max-w-100">
-            <strong className="text-blue-500">Movie App</strong> - Free movies
-            online, here you can watch movies online in high quality for free
-            without annoying of advertising, just come and enjoy your movies
-            online. movie app, movies app, app movies Disclaimer: This site does
-            not store any files on its server. All contents are provided by
-            non-affiliated third parties.
+            <strong className="text-blue-500">Movie App</strong> - Discover your
+            next favorite film with our movie-recommendation app. Get
+            personalized picks based on your tastes, explore trending titles,
+            and save favorites to watch later. We don’t host or stream
+            movies—our goal is to help you decide what to watch next by curating
+            information from trusted sources.
           </p>
         </div>
 

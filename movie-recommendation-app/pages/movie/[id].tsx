@@ -1,27 +1,26 @@
 "use client";
+
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import useMovieStore from "@/components/common/store";
 import Image from "next/image";
 import Link from "next/link";
-import WatchButton from "@/components/common/WatchButton";
 
 export default function MovieDetails() {
   const params = useParams();
-  const id = params?.id as string;
-
-  const movies = useMovieStore((state) => state.movies);
-  const movie = movies.find((movie) => movie.id === Number(id));
-
-  console.log("Movie ID:", id);
-  console.log("Found movie:", movie);
+  const movieId = Number(params?.id);
+  const { movies, likeMovie, commentMovie } = useMovieStore();
+  const movie = movies.find((m) => m.id === movieId);
+  const [commentText, setCommentText] = useState("");
+  const [hasLiked, setHasLiked] = useState(false);
 
   if (!movie) {
     return (
-      <div className="p-6 text-center ">
-        <h1 className=" text-3xl font-medium mb-5">Movie not found</h1>
+      <div className="p-6 text-center">
+        <h1 className="text-3xl font-medium mb-5">Movie not found</h1>
         <Link
-          className="bg-blue-500 py-2 mt-10 px-10 w-20% rounded-full font-bold text-white hover:bg-blue-600 cursor-pointer"
-          href={"/home"}
+          href="/home"
+          className="bg-blue-500 py-2 mt-10 px-10 rounded-full font-bold text-white hover:bg-blue-600"
         >
           Go Back Home
         </Link>
@@ -29,74 +28,92 @@ export default function MovieDetails() {
     );
   }
 
+  const handleLike = () => {
+    if (!hasLiked) {
+      likeMovie(movie.id);
+      setHasLiked(true);
+    }
+  };
+
+  const handleComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (commentText.trim()) {
+      commentMovie(movie.id, commentText.trim());
+      setCommentText("");
+    }
+  };
   return (
-    <div>
-      <div className="relative ">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="relative h-72 w-full shadow">
         <Image
           src={movie.image}
           alt={movie.title}
-          width={400}
-          height={500}
-          className="object-cover  w-full h-150"
-          style={{
-            borderBottomLeftRadius: "60px",
-            borderBottomRightRadius: "60px",
-          }}
+          fill
+          className="object-cover"
         />
-        <div
-          style={{
-            borderBottomLeftRadius: "60px",
-            borderBottomRightRadius: "60px",
-          }}
-          className="absolute inset-0 bg-black opacity-70 flex items-center justify-center "
-        >
-          <Image
-            src="/PlayButton.svg"
-            alt="Play"
-            width={100}
-            height={100}
-            className="cursor-pointer"
-          />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
         </div>
       </div>
 
-      <div className="p-6 max-w-4xl mx-auto flex justify-between  gap-10 align-center ">
-        <div className=" max-w-40">
+      <div className="max-w-5xl mx-auto p-6 md:flex md:gap-10">
+        <div className="md:w-1/3 mb-6 md:mb-0">
           <Image
             src={movie.image}
-            alt=""
-            width={200}
-            height={250}
-            className="object-cover rounded-lg w-full "
+            alt={movie.title}
+            width={400}
+            height={600}
+            className="rounded-xl shadow-lg object-cover w-full"
           />
-          <p className="absolute top-2 right-2 bg-white rounded-sm text-xs p-2 font-semibold">
-            {movie.quality}
-          </p>
         </div>
 
-        <div className="space-y-4">
-          <WatchButton
-            className="transition-colors duration-200 px-4 py-2 bg-blue-500 text-white cursor-pointer font-bold rounded hover:bg-blue-600"
-            title="Watch Now"
-            onClick={() => console.log("clicked")}
-          />
-          <div className="flex gap-5">
-            <h1 className="text-xl font-bold text-black">{movie.title}</h1>
-            <p className="bg-yellow-400 py-1 w-6 h-6 text-center text-black font-bold text-xs rounded-sm ">
-              {movie.quality}
-            </p>
+        <div className="md:w-2/3 space-y-6">
+          <div className="space-y-2">
+            <p>Released year: {movie.year}</p>
+            <p>Duration: {movie.duration} min</p>
           </div>
-          <div className="font-bold text-sm text-gray-600">
-            Released year: {movie.year}
+          <button
+            onClick={handleLike}
+            disabled={hasLiked}
+            className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold transition-colors ${
+              hasLiked
+                ? "bg-gray-400  text-white cursor-not-allowed"
+                : "bg-blue-500 cursor-pointer hover:bg-blue-600 text-white"
+            }`}
+          >
+            ❤️ Like {movie.likes || 0}
+          </button>
+
+          <div className="mt-8">
+            <h2 className="text-xl font-bold mb-2">Comments</h2>
+            <ul className="space-y-2 mb-4">
+              {movie.comments.map((c, i) => (
+                <li key={i} className="bg-white p-3 rounded shadow">
+                  {c}
+                </li>
+              ))}
+            </ul>
+
+            <form onSubmit={handleComment} className="flex gap-2">
+              <input
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                placeholder="Write a comment…"
+                className="flex-1 rounded border p-2"
+              />
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+              >
+                Post
+              </button>
+            </form>
           </div>
 
-          <div className="flex gap-4 font-bold text-sm text-gray-600">
-            <span>Duration: {movie.duration} min</span>
-          </div>
+          <button className="cursor-pointer mt-20 font-bold bg-blue-500 h-10 hover:bg-blue-600 text-white px-5 rounded-full transition-colors duration-200">
+            + Add to favorite
+          </button>
         </div>
-        <button className="cursor-pointer font-bold  bg-blue-500 h-10 hover:bg-blue-600 text-white font-bld px-5 rounded-full transition-colors duration-200">
-          + Add to favorite
-        </button>
       </div>
     </div>
   );

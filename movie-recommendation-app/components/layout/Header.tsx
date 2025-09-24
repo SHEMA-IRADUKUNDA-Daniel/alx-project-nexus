@@ -20,6 +20,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
   const [countryOpen, setCountryOpen] = useState(false);
   const [moviesOpen, setMoviesOpen] = useState(false);
   const [tvOpen, setTvOpen] = useState(false);
+  const [profile, setProfile] = useState(false);
 
   const countryRef = useRef<HTMLLIElement>(null);
   const moviesRef = useRef<HTMLLIElement>(null);
@@ -95,23 +96,6 @@ export default function Header({ onLoginClick }: HeaderProps) {
                 </ul>
               )}
             </li>
-
-            <li className="relative" ref={tvRef}>
-              <button
-                onMouseEnter={() => setTvOpen(true)}
-                onMouseLeave={() => setTvOpen(false)}
-                className="hover:text-blue-500 transition-colors duration-200 cursor-pointer"
-              >
-                TV-Series
-              </button>
-              {tvOpen && (
-                <ul className="absolute top-full mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg">
-                  <li className="px-4 py-2 text-gray-500 cursor-not-allowed">
-                    Loading...
-                  </li>
-                </ul>
-              )}
-            </li>
           </ul>
         </nav>
         <Search
@@ -139,7 +123,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
 
         <button
           onClick={onLoginClick}
-          className="hidden md:flex items-center gap-2 text-white font-semibold cursor-pointer"
+          className="hidden md:flex items-center  gap-2 text-white font-semibold cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -157,6 +141,82 @@ export default function Header({ onLoginClick }: HeaderProps) {
           </svg>
           <span>Login</span>
         </button>
+        <div>
+          <button
+            onClick={() => setProfile(!profile)}
+            className="bg-white rounded-full w-10 h-10 flex items-center justify-center cursor-pointer hover:bg-gray-400"
+          >
+            <h1 className="text-blue-500 text-2xl font-bold">S</h1>
+          </button>
+          {profile && (
+            <div className=" absolute z-10 flex flex-col gap-6 bg-gray-800 border border-blue-500 right-27 rounded-lg mt-5 p-6 font-bold">
+              <h1>Hello, Shema Daniel!</h1>
+              <div className="flex  justify-start gap-5  bg-gray-700  rounded-lg p-2  hover:border border-blue-500 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-6 w-6 transition-colors text-blue-500 duration-200"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16 14c1.333 0 4 1.333 4 4v1H4v-1c0-2.667 2.667-4 4-4m4-8a4 4 0 100 8 4 4 0 000-8z"
+                  />
+                </svg>
+                <h1>Profile</h1>
+              </div>
+              <div className="flex justify-start gap-5  bg-gray-700   hover:border border-blue-500 rounded-lg p-2 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  className="h-6 w-6 text-blue-500 transition-colors duration-300"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 8.25c0-2.485-2.014-4.5-4.5-4.5
+       -1.74 0-3.41.99-4.5 2.55
+       -1.09-1.56-2.76-2.55-4.5-2.55
+       C5.014 3.75 3 5.765 3 8.25
+       c0 7.22 9 12 9 12s9-4.78 9-12z"
+                  />
+                </svg>
+
+                <h1>Favorites</h1>
+              </div>
+              <div className="flex justify-center align-center rounded-lg p-2 cursor-pointer  hover:border border-blue-500 mt-9">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  className="h-6 w-6 text-red-500 transition-colors duration-300"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15"
+                  />
+
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M18 12l-3-3m3 3l-3 3m3-3H9"
+                  />
+                </svg>
+
+                <h1>Log out</h1>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );

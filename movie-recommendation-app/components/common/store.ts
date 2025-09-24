@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { MovieStore } from "@/interfaces";
-const movies = [
+const baseMovies = [
   {
     id: 1,
     title: "Inception",
@@ -194,17 +194,40 @@ const movies = [
     quality: "HD",
     image: "/movie.jpg",
   },
-];
+].map((m) => ({
+  ...m,
+  likes: 0, // ✅ start with 0 likes
+  comments: [] as string[], // ✅ empty comment list
+}));
 const useMovieStore = create<MovieStore>((set) => ({
-  movies: movies,
-
+  movies: baseMovies.map((m) => ({ ...m, likes: 0, comments: [] })), // ensure defaults
   searchMovie: "",
+  likedMovies: [],
 
   setSearchMovie: (search) =>
-    set(() => ({
+    set((state) => ({
       searchMovie: search,
-      movies: movies.filter((movie) =>
-        movie.title.toLowerCase().includes(search.toLowerCase())
+      movies: state.movies.map((m) => ({
+        ...m,
+        // filtering is typically done at selector level, but we can still filter here if desired
+      })),
+    })),
+
+  likeMovie: (id) =>
+    set((state) => {
+      if (state.likedMovies.includes(id)) return state; // prevent multiple likes
+      return {
+        likedMovies: [...state.likedMovies, id],
+        movies: state.movies.map((m) =>
+          m.id === id ? { ...m, likes: (m.likes ?? 0) + 1 } : m
+        ),
+      };
+    }),
+
+  commentMovie: (movieId, text) =>
+    set((state) => ({
+      movies: state.movies.map((m) =>
+        m.id === movieId ? { ...m, comments: [...(m.comments ?? []), text] } : m
       ),
     })),
 }));
