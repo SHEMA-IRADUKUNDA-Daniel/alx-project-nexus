@@ -1,5 +1,5 @@
 import Button from "@/components/common/Button";
-import Search from "@/components/common/Search";
+// import Search from "@/components/common/Search";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-6 mt-20 text-blue-500">
           Movie App
         </h1>
-
+        {/* 
         <Search
           className="w-80 border border-blue-500  rounded-full focus-within:border-blue-500 overflow-hidden flex"
           placeholder="Search movies..."
@@ -24,7 +24,7 @@ export default function Home() {
               Search
             </button>
           }
-        />
+        /> */}
         <p className="text-gray-600 mt-10 text-xl font-bold text-center">
           Movieapp.com - Just a better place for watching online movies for
           free!

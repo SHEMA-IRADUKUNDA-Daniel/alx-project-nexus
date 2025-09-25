@@ -15,7 +15,7 @@ export default function Banner() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_40%,rgba(0,0,0,4)_100%)]" />
 
       <div
-        className="absolute inset-0 mt-40 
+        className="absolute inset-0 mt-30 
                       text-white max-w-7xl mx-auto px-6"
       >
         <h2 className="text-3xl font-bold mb-3">

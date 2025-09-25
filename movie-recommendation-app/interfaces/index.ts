@@ -43,12 +43,16 @@ export interface MovieStore {
   movies: Movie[];
   searchMovie: string;
   setSearchMovie: (search: string) => void;
-  likeMovie: (id: number) => void;
+  // likeMovie: (id: number) => void;
   commentMovie: (id: number, comment: string) => void;
   likedMovies: number[];
+  toggleLike: (id: number) => void;
 
   favorites: number[];
   toggleFavorite: (id: number) => void;
+  user: { name: string } | null;
+  setUser: (user: { name: string } | null) => void;
+  logout: () => void;
 }
 
 export interface WatchButtonProp {

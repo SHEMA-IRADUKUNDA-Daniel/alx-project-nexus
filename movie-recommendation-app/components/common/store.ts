@@ -298,6 +298,10 @@ const useMovieStore = create<MovieStore>((set) => ({
   searchMovie: "",
   likedMovies: [],
   favorites: [],
+  user: null,
+
+  setUser: (user) => set({ user }),
+  logout: () => set({ user: null }),
 
   setSearchMovie: (search) =>
     set((state) => ({
@@ -307,13 +311,21 @@ const useMovieStore = create<MovieStore>((set) => ({
       })),
     })),
 
-  likeMovie: (id) =>
+  toggleLike: (id) =>
     set((state) => {
-      if (state.likedMovies.includes(id)) return state;
+      const isLiked = state.likedMovies.includes(id);
+      // if (state.likedMovies.includes(id)) return state;
       return {
-        likedMovies: [...state.likedMovies, id],
+        likedMovies: isLiked
+          ? state.likedMovies.filter((mId) => mId !== id)
+          : [...state.likedMovies, id],
         movies: state.movies.map((m) =>
-          m.id === id ? { ...m, likes: (m.likes ?? 0) + 1 } : m
+          m.id === id
+            ? {
+                ...m,
+                likes: isLiked ? (m.likes || 1) - 1 : (m.likes || 0) + 1,
+              }
+            : m
         ),
       };
     }),

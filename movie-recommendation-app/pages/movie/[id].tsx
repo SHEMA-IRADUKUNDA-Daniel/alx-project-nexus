@@ -9,12 +9,19 @@ import Link from "next/link";
 export default function MovieDetails() {
   const params = useParams();
   const movieId = Number(params?.id);
-  const { movies, likeMovie, commentMovie } = useMovieStore();
+  const {
+    movies,
+    toggleLike,
+    commentMovie,
+    likedMovies,
+    favorites,
+    toggleFavorite,
+  } = useMovieStore();
   const movie = movies.find((m) => m.id === movieId);
   const [commentText, setCommentText] = useState("");
-  const [hasLiked, setHasLiked] = useState(false);
-  const { favorites, toggleFavorite } = useMovieStore();
-  const isFavorite = favorites.includes(movieId);
+  // const isLiked = likedMovies.includes(movie.id);
+  // // const { favorites, toggleFavorite } = useMovieStore();
+  // const isFavorite = favorites.includes(movieId);
 
   if (!movie) {
     return (
@@ -31,12 +38,10 @@ export default function MovieDetails() {
   }
 
   const handleLike = () => {
-    if (!hasLiked) {
-      likeMovie(movie.id);
-      setHasLiked(true);
-    }
+    toggleLike(movie.id);
   };
-
+  const isLiked = likedMovies.includes(movie.id);
+  const isFavorite = favorites.includes(movie.id);
   const handleComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (commentText.trim()) {
@@ -58,13 +63,13 @@ export default function MovieDetails() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto p-6 md:flex md:gap-10">
-        <div className="md:w-1/3 mb-6 md:mb-0">
+      <div className=" flex items-center max-w-5xl mx-auto p-6 md:flex md:gap-10">
+        <div className=" mb-6 md:mb-0">
           <Image
             src={movie.image}
             alt={movie.title}
-            width={200}
-            height={400}
+            width={150}
+            height={250}
             className="rounded-xl shadow-lg object-cover w-full"
           />
         </div>
@@ -72,7 +77,7 @@ export default function MovieDetails() {
         <div className="md:w-2/3 space-y-6">
           <div className="space-y-2">
             <p>
-              <strong>Description:</strong> <span>{movie.description}</span>
+              <span>{movie.description}</span>
             </p>
             <p>
               <strong>Genre:</strong>
@@ -89,17 +94,23 @@ export default function MovieDetails() {
             <p>
               <strong>Duration:</strong> <span>{movie.duration}</span> min
             </p>
+            <p>
+              <strong>Casts:</strong>{" "}
+              <span>
+                {Array.isArray(movie.cast) ? movie.cast.join(", ") : movie.cast}
+              </span>{" "}
+              min
+            </p>
           </div>
           <button
             onClick={handleLike}
-            disabled={hasLiked}
-            className={`flex items-center gap-2 px-5 py-2 rounded-full font-semibold transition-colors ${
-              hasLiked
-                ? "bg-gray-400  text-white cursor-not-allowed"
-                : "bg-blue-500 cursor-pointer hover:bg-blue-600 text-white"
+            className={`flex items-center gap-2 px-5 cursor-pointer py-2 rounded-full font-semibold transition-colors ${
+              isLiked
+                ? "bg-gray-400 text-white"
+                : "bg-blue-500 hover:bg-blue-600 text-white"
             }`}
           >
-            ❤️ Like {movie.likes || 0}
+            {isLiked ? "  Liked 👍" : " 👍 Like"} {movie.likes || 0}
           </button>
 
           <div className="mt-8">
@@ -136,7 +147,7 @@ export default function MovieDetails() {
                 : "bg-gray-200 cursor-pointer text-gray-700 hover:bg-gray-300"
             }`}
           >
-            {isFavorite ? "★ Added to Favorites" : "+ Add to Favorites"}
+            {isFavorite ? "★ Remove from Favorites" : "+ Add to Favorites"}
           </button>
         </div>
       </div>

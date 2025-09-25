@@ -9,11 +9,11 @@ export default function MovieCard() {
   console.log(movies);
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap justify-center sm:justify-start">
       {movies.map((movie) => (
         <div
           key={movie.id}
-          className=" my-2 mx-2 max-w-40 relative cursor-pointer "
+          className=" my-2 mx-2 max-w-40  relative cursor-pointer "
         >
           <Link href={`/movie/${movie.id}`} className="relative  group">
             <Image
@@ -21,7 +21,7 @@ export default function MovieCard() {
               alt="poster"
               width={200}
               height={250}
-              className="object-fill rounded-sm"
+              className="object-fill  rounded-sm"
             />
             <p className="absolute top-1 right-1 bg-white rounded-sm text-xs p-1">
               {movie.quality}
