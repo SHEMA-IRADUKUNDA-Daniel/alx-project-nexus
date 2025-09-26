@@ -5,8 +5,10 @@ import { useState } from "react";
 import useMovieStore from "@/components/common/store";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function MovieDetails() {
+  const router = useRouter();
   const params = useParams();
   const movieId = Number(params?.id);
   const {
@@ -76,6 +78,25 @@ export default function MovieDetails() {
             height={250}
             className="rounded-xl shadow-lg object-cover w-full"
           />
+          <button
+            onClick={() => router.push("/home")}
+            className="absolute md:hidden left-6 bg-blue-500 p-2 rounded-full top-22 z-10 text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+              strokeWidth={2}
+              className="w-6 h-6 text-gray-800 cursor-pointer hover:text-blue-500"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7" // ← path that draws the left arrow
+              />
+            </svg>
+          </button>
         </div>
 
         <div className="md:w-2/3 space-y-6">

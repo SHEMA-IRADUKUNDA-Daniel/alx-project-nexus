@@ -51,7 +51,7 @@ export default function Banner() {
         <p className="max-w-md mb-4 font-medium">{current.description}</p>
 
         <Button
-          title="See More Details"
+          title="View Details"
           onClick={() => router.push(`/movie/${current.id}`)}
           className="px-4 py-2 bg-blue-500 text-white cursor-pointer font-bold rounded hover:bg-blue-600"
         />

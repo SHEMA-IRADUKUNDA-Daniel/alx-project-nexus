@@ -6,7 +6,7 @@ export default function SignInModal({
 }: ExtendedSignInModalProps) {
   return (
     <div
-      className="fixed inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed inset-0 px-2  bg-[rgba(0,0,0,0.2)] backdrop-blur-sm flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div

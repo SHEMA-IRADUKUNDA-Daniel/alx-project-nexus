@@ -5,7 +5,7 @@ export default function RegisterModal({
 }: RegisterModalProps) {
   return (
     <div
-      className="fixed inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-sm flex items-center justify-center z-50"
+      className="fixed px-2  inset-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-sm flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div
