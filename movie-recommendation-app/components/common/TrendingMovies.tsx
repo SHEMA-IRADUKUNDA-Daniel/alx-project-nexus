@@ -13,7 +13,7 @@ export default function MovieCard() {
       {movies.map((movie) => (
         <div
           key={movie.id}
-          className=" my-2 mx-2 max-w-40  relative cursor-pointer "
+          className=" my-2 mx-2 md:max-w-40 max-w-35 relative cursor-pointer "
         >
           <Link href={`/movie/${movie.id}`} className="relative  group">
             <Image

@@ -39,7 +39,7 @@ export default function Banner() {
       >
         <h2 className="text-3xl font-bold mb-3">{current.title}</h2>
 
-        <ul className="flex gap-4 mb-3 text-gray-200 font-bold items-center bg-bla">
+        <ul className="flex gap-3 mb-3 text-gray-200 font-bold items-center">
           <li className="bg-yellow-300 text-black font-bold text-xs rounded-sm p-1">
             {current.quality}
           </li>

@@ -61,7 +61,9 @@ export default function Header({ onLoginClick }: HeaderProps) {
     <header className="w-full bg-gray-800 text-white shadow-lg z-10">
       <div className="flex flex-row items-center justify-between px-6 py-4 max-w-7xl mx-auto gap-10">
         <button className="flex-shrink-0 cursor-pointer" onClick={goToWelcome}>
-          <h1 className="text-2xl font-bold text-blue-500">Movie App</h1>
+          <h1 className="md:text-2xl text-xl font-bold text-blue-500">
+            Movie App
+          </h1>
         </button>
         <nav className="hidden md:flex flex-1 justify-center">
           <ul className="flex flex-row space-x-8">
@@ -120,7 +122,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
           />
 
           {search && filteredMovies.length > 0 && (
-            <div className="absolute left-0 mt-2 w-full bg-white text-gray-800 rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
+            <div className="absolute left-0 mt-2 md:w-full w-50 bg-white text-gray-800  rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
               {filteredMovies.map((movie) => (
                 <Link
                   key={movie.id}
