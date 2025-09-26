@@ -17,7 +17,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = useMovieStore((state) => state.user);
-  const setUser = useMovieStore((state) => state.setUser);
+  // const setUser = useMovieStore((state) => state.setUser);
   const logout = useMovieStore((state) => state.logout);
 
   function goToWelcome() {
@@ -69,7 +69,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
               <Link
                 onClick={goToWelcome}
                 href="/"
-                className="hover:text-blue-500 transition-colors duration-200 cursor-pointer"
+                className="hover:text-blue-500 font-bold transition-colors duration-200 cursor-pointer"
               >
                 Home
               </Link>
@@ -79,7 +79,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
               <button
                 onMouseEnter={() => setCountryOpen(true)}
                 onMouseLeave={() => setCountryOpen(false)}
-                className="hover:text-blue-500 transition-colors duration-200 cursor-pointer"
+                className="hover:text-blue-500 font-bold transition-colors duration-200 cursor-pointer"
               >
                 Country
               </button>
@@ -96,12 +96,12 @@ export default function Header({ onLoginClick }: HeaderProps) {
               <button
                 onMouseEnter={() => setMoviesOpen(true)}
                 onMouseLeave={() => setMoviesOpen(false)}
-                className="hover:text-blue-500 transition-colors duration-200 cursor-pointer"
+                className="hover:text-blue-500 font-bold transition-colors duration-200 cursor-pointer"
               >
                 Movies
               </button>
               {moviesOpen && (
-                <ul className="absolute top-full mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg">
+                <ul className="absolute top-full  mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg">
                   <li className="px-4 py-2 text-gray-500 cursor-not-allowed">
                     Loading...
                   </li>
@@ -160,7 +160,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
                 d="M16 14c1.333 0 4 1.333 4 4v1H4v-1c0-2.667 2.667-4 4-4m4-8a4 4 0 100 8 4 4 0 000-8z"
               />
             </svg>
-            <span>Login</span>
+            <span className="font-bold">Login</span>
           </button>
         ) : (
           <div className="relative hidden md:flex">
@@ -176,7 +176,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
             {profile && (
               <div
                 onMouseLeave={() => setProfile(false)}
-                className="absolute z-10 flex flex-col gap-6 bg-gray-800 border w-56 border-blue-500 right-0 rounded-lg mt-5 p-6 font-bold"
+                className="absolute mt-15 z-10 flex flex-col gap-6 bg-gray-800 border w-56 border-blue-500 right-0 rounded-lg p-6 font-bold"
               >
                 <h1>Hello, {user.name}!</h1>
                 <Link

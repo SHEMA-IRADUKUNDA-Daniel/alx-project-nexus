@@ -35,51 +35,53 @@ export default function Profile() {
 
   return (
     <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Profile</h1>
+      <h1 className="text-3xl text-gray-800 font-bold mb-6">Profile</h1>
 
       <section className="bg-white rounded shadow p-6 mb-8 space-y-4">
         <div>
-          <label className="block font-medium text-gray-700">Username</label>
+          <label className="block font-medium text-gray-600">Username</label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="mt-1 w-full border rounded p-2"
+            className="mt-1 w-full border border-gray-700 rounded p-2"
           />
         </div>
         <div>
-          <label className="block font-medium text-gray-700">Email</label>
+          <label className="block font-medium text-gray-600">Email</label>
           <input
             type="email"
             value={email}
             readOnly
-            className="mt-1 w-full border rounded p-2 bg-gray-100 text-gray-700 cursor-not-allowed"
+            className="mt-1 w-full border rounded p-2 bg-gray-100 border-gray-700 cursor-not-allowed"
           />
         </div>
       </section>
 
       <section className="bg-white rounded shadow p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Change Password</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          Change Password
+        </h2>
         <form onSubmit={handlePasswordChange} className="space-y-4">
           <input
             type="password"
             placeholder="Current password"
             value={currentPwd}
             onChange={(e) => setCurrentPwd(e.target.value)}
-            className="w-full border rounded p-2"
+            className="w-full border-gray-800 border rounded p-2"
           />
           <input
             type="password"
             placeholder="New password"
             value={newPwd}
             onChange={(e) => setNewPwd(e.target.value)}
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-800 rounded p-2"
           />
           <input
             type="password"
             placeholder="Confirm new password"
             value={confirmPwd}
             onChange={(e) => setConfirmPwd(e.target.value)}
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-800 rounded p-2"
           />
           <button
             type="submit"
@@ -92,9 +94,11 @@ export default function Profile() {
       </section>
 
       <section className="bg-white rounded shadow p-6">
-        <h2 className="text-xl font-semibold mb-2">Movie Stats</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+          Movie Stats
+        </h2>
 
-        <p className="text-gray-700 mb-4">
+        <p className="text-gray-600 mb-4">
           Total Likes of Liked Movies: <strong>{totalLikedMovies}</strong>
         </p>
         <Link

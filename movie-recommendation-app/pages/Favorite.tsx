@@ -9,7 +9,9 @@ export default function Favorite() {
   if (favoriteMovies.length === 0) {
     return (
       <div className="p-6 text-center">
-        <h1 className="text-3xl font-bold mb-4">No Favorites Yet</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          No Favorites Yet
+        </h1>
         <p className="mb-4 text-gray-600">Add some movies to your favorites!</p>
         <Link
           href="/home"

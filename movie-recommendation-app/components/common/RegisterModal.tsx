@@ -13,7 +13,9 @@ export default function RegisterModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center content-center mb-4">
-          <h2 className="text-xl font-semibold ">Create an Account</h2>
+          <h2 className="text-xl font-semibold text-gray-800 ">
+            Create an Account
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-800 font-bold cursor-pointer"
@@ -23,20 +25,62 @@ export default function RegisterModal({
         </div>
 
         <form className="space-y-4">
-          <label htmlFor="text"> Full Name</label>
-          <input type="text" className="w-full px-4 py-2 border rounded-lg" />
-          <label htmlFor="email">Email</label>
-          <input type="email" className="w-full px-4 py-2 border rounded-lg" />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="w-full px-4 py-2 border rounded-lg"
-          />
-          <label htmlFor="password">Confirm Password</label>
-          <input
-            type="password"
-            className="w-full px-4 py-2 border rounded-lg"
-          />
+          <div>
+            <label
+              htmlFor="text"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="text"
+              name="name"
+              className="mt-1 w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="mt-1 w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm  font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="mt-1 w-full px-4 border-gray-600 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm  font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="mt-1 w-full px-4 border-gray-600 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"

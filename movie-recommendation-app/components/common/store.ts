@@ -7,6 +7,7 @@ export const baseMovies = [
     year: 2010,
     duration: 148,
     quality: "HD",
+    rating: 8.8,
     image: "/movie.jpg",
     description:
       "A skilled thief enters dreams to steal secrets and faces the challenge of planting an idea.",
@@ -19,6 +20,7 @@ export const baseMovies = [
     year: 2008,
     duration: 152,
     quality: "HD",
+    rating: 9.0,
     image: "/movie.jpg",
     description:
       "Batman battles the Joker, who seeks to plunge Gotham into chaos.",
@@ -31,6 +33,7 @@ export const baseMovies = [
     year: 2014,
     duration: 169,
     quality: "4K",
+    rating: 8.6,
     image: "/movie.jpg",
     description:
       "Explorers travel through a wormhole to find a new home for humanity.",
@@ -43,6 +46,7 @@ export const baseMovies = [
     year: 1999,
     duration: 136,
     quality: "HD",
+    rating: 8.7,
     image: "/movie.jpg",
     description:
       "A hacker discovers reality is a simulation and joins a rebellion against machines.",
@@ -55,6 +59,7 @@ export const baseMovies = [
     year: 2000,
     duration: 155,
     quality: "HD",
+    rating: 8.5,
     image: "/movie.jpg",
     description:
       "A betrayed Roman general fights for revenge and honor in the arena.",
@@ -67,6 +72,7 @@ export const baseMovies = [
     year: 1994,
     duration: 142,
     quality: "HD",
+    rating: 9.3,
     image: "/movie.jpg",
     description:
       "Two imprisoned men bond over years, finding solace and eventual freedom.",
@@ -79,6 +85,7 @@ export const baseMovies = [
     year: 1999,
     duration: 139,
     quality: "HD",
+    rating: 8.8,
     image: "/movie.jpg",
     description:
       "An insomniac and a soap maker form an underground fight club with unexpected consequences.",
@@ -91,6 +98,7 @@ export const baseMovies = [
     year: 1994,
     duration: 154,
     quality: "HD",
+    rating: 8.9,
     image: "/movie.jpg",
     description:
       "Interwoven stories of crime and redemption in Los Angeles’ underworld.",
@@ -103,6 +111,7 @@ export const baseMovies = [
     year: 1994,
     duration: 142,
     quality: "HD",
+    rating: 8.8,
     image: "/movie.jpg",
     description:
       "A man with a kind heart witnesses key moments in American history.",
@@ -115,6 +124,7 @@ export const baseMovies = [
     year: 2001,
     duration: 178,
     quality: "HD",
+    rating: 8.8,
     image: "/movie.jpg",
     description:
       "A hobbit sets out with allies to destroy a powerful ring of evil.",
@@ -127,6 +137,7 @@ export const baseMovies = [
     year: 2002,
     duration: 179,
     quality: "HD",
+    rating: 8.7,
     image: "/movie.jpg",
     description:
       "The Fellowship is scattered as the battle for Middle-earth intensifies.",
@@ -139,6 +150,7 @@ export const baseMovies = [
     year: 2003,
     duration: 201,
     quality: "HD",
+    rating: 8.9,
     image: "/movie.jpg",
     description:
       "The final confrontation against Sauron decides the fate of Middle-earth.",
@@ -151,6 +163,7 @@ export const baseMovies = [
     year: 2012,
     duration: 143,
     quality: "HD",
+    rating: 8.0,
     image: "/movie.jpg",
     description:
       "Earth’s mightiest heroes team up to stop Loki’s invasion of Earth.",
@@ -163,6 +176,7 @@ export const baseMovies = [
     year: 2019,
     duration: 181,
     quality: "HD",
+    rating: 8.4,
     image: "/movie.jpg",
     description:
       "The Avengers assemble once more to undo Thanos’ devastating snap.",
@@ -175,6 +189,7 @@ export const baseMovies = [
     year: 2008,
     duration: 126,
     quality: "HD",
+    rating: 7.9,
     image: "/movie.jpg",
     description:
       "A billionaire builds a high-tech suit of armor to become a hero.",
@@ -187,6 +202,7 @@ export const baseMovies = [
     year: 2018,
     duration: 134,
     quality: "HD",
+    rating: 7.3,
     image: "/movie.jpg",
     description:
       "T’Challa returns to Wakanda to claim the throne and face a powerful adversary.",
@@ -199,6 +215,7 @@ export const baseMovies = [
     year: 2016,
     duration: 115,
     quality: "HD",
+    rating: 7.5,
     image: "/movie.jpg",
     description:
       "A surgeon learns the mystic arts after an accident changes his life.",
@@ -211,6 +228,7 @@ export const baseMovies = [
     year: 2014,
     duration: 121,
     quality: "HD",
+    rating: 8.0,
     image: "/movie.jpg",
     description: "A group of misfits bands together to protect a powerful orb.",
     genre: ["Action", "Comedy", "Sci-Fi"],
@@ -222,6 +240,7 @@ export const baseMovies = [
     year: 2019,
     duration: 123,
     quality: "HD",
+    rating: 6.8,
     image: "/movie.jpg",
     description:
       "A former pilot gains cosmic powers and discovers her true identity.",
@@ -234,6 +253,7 @@ export const baseMovies = [
     year: 2017,
     duration: 130,
     quality: "HD",
+    rating: 7.9,
     image: "/movie.jpg",
     description:
       "Thor must escape Sakaar and stop Hela from destroying Asgard.",
@@ -246,6 +266,7 @@ export const baseMovies = [
     year: 2017,
     duration: 133,
     quality: "HD",
+    rating: 7.4,
     image: "/movie.jpg",
     description:
       "Peter Parker balances high school life with being Spider-Man.",
@@ -258,6 +279,7 @@ export const baseMovies = [
     year: 2021,
     duration: 148,
     quality: "HD",
+    rating: 8.2,
     image: "/movie.jpg",
     description:
       "Peter seeks Doctor Strange’s help to restore his secret identity, causing multiverse chaos.",
@@ -270,6 +292,7 @@ export const baseMovies = [
     year: 2015,
     duration: 117,
     quality: "HD",
+    rating: 7.3,
     image: "/movie.jpg",
     description:
       "A thief gains the ability to shrink in scale but increase in strength.",
@@ -282,6 +305,7 @@ export const baseMovies = [
     year: 2018,
     duration: 118,
     quality: "HD",
+    rating: 7.0,
     image: "/movie.jpg",
     description:
       "Ant-Man teams with the Wasp to uncover secrets of the quantum realm.",
@@ -298,7 +322,7 @@ const useMovieStore = create<MovieStore>((set) => ({
   searchMovie: "",
   likedMovies: [],
   favorites: [],
-  user: null,
+  user: { name: "Shema Daniel" },
 
   setUser: (user) => set({ user }),
   logout: () => set({ user: null }),
@@ -336,9 +360,7 @@ const useMovieStore = create<MovieStore>((set) => ({
         m.id === movieId ? { ...m, comments: [...(m.comments ?? []), text] } : m
       ),
     })),
-  toggleFavorite: (
-    id // NEW
-  ) =>
+  toggleFavorite: (id) =>
     set((state) => ({
       favorites: state.favorites.includes(id)
         ? state.favorites.filter((fav) => fav !== id)

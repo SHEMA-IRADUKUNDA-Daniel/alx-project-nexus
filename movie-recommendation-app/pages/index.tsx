@@ -26,8 +26,7 @@ export default function Home() {
           }
         /> */}
         <p className="text-gray-600 mt-10 text-xl font-bold text-center">
-          Movieapp.com - Just a better place for watching online movies for
-          free!
+          Movieapp.com - Your better place to discover movies you’ll love.
         </p>
         <Button
           className="bg-blue-500 py-2 mt-10 px-10 rounded-full font-bold text-white hover:bg-blue-600 cursor-pointer"

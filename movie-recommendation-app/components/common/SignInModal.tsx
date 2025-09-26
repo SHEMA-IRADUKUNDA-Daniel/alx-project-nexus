@@ -14,7 +14,9 @@ export default function SignInModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold ">Welcome Back!</h2>
+          <h2 className="text-xl font-semibold text-gray-800 ">
+            Welcome Back!
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-800 font-bold cursor-pointer"
@@ -35,14 +37,14 @@ export default function SignInModal({
               type="email"
               id="email"
               name="email"
-              className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm  font-medium text-gray-700"
             >
               Password
             </label>
@@ -50,12 +52,12 @@ export default function SignInModal({
               type="password"
               id="password"
               name="password"
-              className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full px-4 border-gray-600 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex items-center justify-between">
-            <label className="flex items-center text-sm gap-2">
+            <label className="flex items-center text-sm text-gray-600 gap-2">
               <input type="checkbox" className="form-checkbox" />
               Remember me
             </label>

@@ -23,7 +23,7 @@ export default function MovieCard() {
               height={250}
               className="object-fill  rounded-sm"
             />
-            <p className="absolute top-1 right-1 bg-white rounded-sm text-xs p-1">
+            <p className="absolute top-1 right-1 bg-yellow-300  font-bold rounded-sm text-xs p-1">
               {movie.quality}
             </p>
             <div className="absolute  inset-0 hidden group-hover:flex items-center justify-center">
@@ -36,8 +36,8 @@ export default function MovieCard() {
               />
             </div>
           </Link>
-          <h2 className=" font-bold text-black mt-3">{movie.title}</h2>
-          <div className="flex gap-2 text-xs  text-gray-900 font-medium items-center mt-3">
+          <h2 className=" font-bold text-gray-800 mt-3">{movie.title}</h2>
+          <div className="flex gap-2 text-xs  text-gray-700 font-medium items-center mt-3">
             <p>{movie.year}</p>
             <p>-</p>
             <p>{movie.duration} min</p>

@@ -38,6 +38,7 @@ export interface Movie {
   cast: string[];
   likes?: number;
   comments: string[];
+  rating: number;
 }
 export interface MovieStore {
   movies: Movie[];
