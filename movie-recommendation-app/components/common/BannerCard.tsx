@@ -28,7 +28,7 @@ export default function Banner() {
       />
 
       <div
-        className="absolute inset-0 z-10 
+        className="absolute inset-0 z-9 
     bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_80%,rgba(0,0,0,0.9)_100%)]
     before:absolute before:inset-0 before:bg-black/40 before:content-['']"
       />
