@@ -322,8 +322,8 @@ const useMovieStore = create<MovieStore>((set) => ({
   searchMovie: "",
   likedMovies: [],
   favorites: [],
-  user: { name: "Shema Daniel" },
-
+  user: null,
+  loginModalOpen: false,
   setUser: (user) => set({ user }),
   logout: () => set({ user: null }),
 
@@ -366,5 +366,7 @@ const useMovieStore = create<MovieStore>((set) => ({
         ? state.favorites.filter((fav) => fav !== id)
         : [...state.favorites, id],
     })),
+  openLoginModal: () => set({ loginModalOpen: true }),
+  closeLoginModal: () => set({ loginModalOpen: false }),
 }));
 export default useMovieStore;

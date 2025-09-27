@@ -23,8 +23,22 @@ export default function MovieDetails() {
   const [commentText, setCommentText] = useState("");
   const user = useMovieStore((state) => state.user);
   // const isLiked = likedMovies.includes(movie.id);
-  // // const { favorites, toggleFavorite } = useMovieStore();
   // const isFavorite = favorites.includes(movieId);
+  const { openLoginModal } = useMovieStore();
+  const LikeIcon = ({ className }: { className?: string }) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={`w-5 h-5 ${className}`}
+    >
+      <path
+        d="M2 21h4V9H2v12zM22 10c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32
+             c0-.41-.17-.79-.44-1.06L13.17 2 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0
+             1.1.9 2 2 2h7c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1z"
+      />
+    </svg>
+  );
 
   if (!movie) {
     return (
@@ -41,6 +55,9 @@ export default function MovieDetails() {
   }
 
   const handleLike = () => {
+    if (!user) {
+      openLoginModal();
+    }
     toggleLike(movie.id);
   };
   const isLiked = likedMovies.includes(movie.id);
@@ -63,21 +80,27 @@ export default function MovieDetails() {
         />
         <div className="absolute inset-0 bg-black/40 gap-5 flex flex-row items-center align-center justify-center">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-          <p className="bg-yellow-300 text-black font-bold text-xs rounded-sm p-1">
-            {movie.quality}
+          <p className=" flex items-center gap-1 bg-black bg-opacity-20 text-white text-sm font-semibold px-2 py-1 rounded-full ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-4 h-4 text-yellow-400"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 2.25l2.955 6.066 6.695.974-4.845 4.72 1.144 6.665L12 17.77l-6.0
+       3.18 1.145-6.665-4.845-4.72 6.695-.974L12 2.25z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {movie.rating}
           </p>
         </div>
       </div>
 
-      <div className=" flex items-center flex-col md:flex-row max-w-5xl mx-auto p-6 md:flex md:gap-10">
+      <div className=" flex items-center justify-center flex-col md:flex-row max-w-5xl mx-auto p-6 md:flex md:gap-10">
         <div className=" mb-6 md:mb-0">
-          <Image
-            src={movie.image}
-            alt={movie.title}
-            width={150}
-            height={250}
-            className="rounded-xl shadow-lg object-cover w-full"
-          />
           <button
             onClick={() => router.push("/home")}
             className="absolute md:hidden left-6 bg-blue-500 p-2 rounded-full top-22 z-10 text-white"
@@ -93,7 +116,7 @@ export default function MovieDetails() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M15 19l-7-7 7-7" // ← path that draws the left arrow
+                d="M15 19l-7-7 7-7"
               />
             </svg>
           </button>
@@ -104,13 +127,6 @@ export default function MovieDetails() {
             <p>
               <span className="font-medium text-gray-600 py-2">
                 {movie.description}
-              </span>
-            </p>
-            <p className="mt-1 text-sm  font-semibold">
-              <strong className="text-gray-800">Rating: </strong>
-              <span className=" bg-yellow-400 rounded-sm font-bold px-2 py-1">
-                {" "}
-                {movie.rating}
               </span>
             </p>
 
@@ -136,51 +152,57 @@ export default function MovieDetails() {
               <span className="text-gray-600">
                 {Array.isArray(movie.cast) ? movie.cast.join(", ") : movie.cast}
               </span>{" "}
-              min
             </p>
           </div>
-          {user && (
-            <div>
-              <button
-                onClick={handleLike}
-                className={`flex items-center gap-2 px-5 cursor-pointer py-2 rounded-full font-semibold transition-colors ${
-                  isLiked
-                    ? "bg-gray-400 text-white"
-                    : "bg-blue-500 hover:bg-blue-600 text-white"
-                }`}
-              >
-                {isLiked ? "  Liked 👍" : " 👍 Like"} {movie.likes || 0}
-              </button>
 
-              <div className="mt-8">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">
-                  Comments
-                </h2>
-                <ul className="space-y-2 mb-4">
-                  {movie.comments.map((c, i) => (
-                    <li key={i} className="bg-white p-3 rounded shadow">
-                      {c}
-                    </li>
-                  ))}
-                </ul>
+          <div>
+            <button
+              onClick={handleLike}
+              className={`flex items-center gap-2 px-5 cursor-pointer py-2 rounded-full font-semibold transition-colors ${
+                isLiked
+                  ? "bg-gray-400 text-white"
+                  : "bg-blue-500 hover:bg-blue-600 text-white"
+              }`}
+            >
+              {isLiked ? (
+                <>
+                  Liked <LikeIcon className="text-white" />
+                </>
+              ) : (
+                <>
+                  <LikeIcon className="text-white" /> Like
+                </>
+              )}{" "}
+              {movie.likes || 0}
+            </button>
 
-                <form onSubmit={handleComment} className="flex gap-2">
-                  <input
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                    placeholder="Write a comment…"
-                    className="flex-1 rounded border-gray-600 border p-2"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                  >
-                    Post
-                  </button>
-                </form>
-              </div>
+            <div className="mt-8">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Comments</h2>
+              <ul className="space-y-2 mb-4">
+                {movie.comments.map((c, i) => (
+                  <li key={i} className="bg-white p-3 rounded shadow">
+                    {c}
+                  </li>
+                ))}
+              </ul>
+
+              <form onSubmit={handleComment} className="flex gap-2">
+                <input
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  placeholder="Write a comment…"
+                  className="flex-1 rounded border-gray-600 border p-2"
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
+                >
+                  Post
+                </button>
+              </form>
             </div>
-          )}
+          </div>
+
           <button
             onClick={() => toggleFavorite(movieId)}
             className={`px-5 py-2 rounded-full font-semibold  transition-colors ${

@@ -37,7 +37,7 @@ export default function Home() {
         <div className="mt-10  px-3 flex flex-col justify-left">
           <p className="text-blue-500 font-bold">
             {" "}
-            Movie App - Watch Free Movies Online | movieapp.com
+            Movie App - Discover Free Movies Online | movieapp.com
           </p>
           <p className="text-gray-600 mb-20">
             Cord-cutting is becoming a huge thing these days. People around the

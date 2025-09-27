@@ -5,6 +5,22 @@ import Link from "next/link";
 export default function Favorite() {
   const { favorites, movies, toggleFavorite } = useMovieStore();
   const favoriteMovies = movies.filter((m) => favorites.includes(m.id));
+  const CloseIcon = ({ className }: { className?: string }) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      className={`w-5 h-5 ${className}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  );
 
   if (favoriteMovies.length === 0) {
     return (
@@ -49,7 +65,7 @@ export default function Favorite() {
                 }}
                 className="absolute top-1 left-1 cursor-pointer bg-red-400 hover:bg-red-600 text-white p-4 rounded-sm text-center font-bold"
               >
-                X
+                <CloseIcon className="text-white" />
               </button>
             </Link>
             <div className="py-5">

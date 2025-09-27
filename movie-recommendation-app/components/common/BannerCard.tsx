@@ -40,10 +40,22 @@ export default function Banner() {
         <h2 className="text-3xl font-bold mb-3">{current.title}</h2>
 
         <ul className="flex gap-3 mb-3 text-gray-200 font-bold items-center">
-          <li className="bg-yellow-300 text-black font-bold text-xs rounded-sm p-1">
-            {current.quality}
+          <li className="flex gap-1 items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 text-yellow-400"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 2.25l2.955 6.066 6.695.974-4.845 4.72 1.144 6.665L12 17.77l-6.0
+       3.18 1.145-6.665-4.845-4.72 6.695-.974L12 2.25z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {current.rating}
           </li>
-          <li>⭐ {current.rating}</li>
           <li>{current.duration} </li>
           <li>{current.genre.join(", ")}</li>
         </ul>
@@ -51,9 +63,26 @@ export default function Banner() {
         <p className="max-w-md mb-4 font-medium">{current.description}</p>
 
         <Button
-          title="View Details"
           onClick={() => router.push(`/movie/${current.id}`)}
-          className="px-4 py-2 bg-blue-500 text-white cursor-pointer font-bold rounded hover:bg-blue-600"
+          className="px-4 flex items-center justify-between gap-1 py-2 bg-blue-500 text-white cursor-pointer font-bold rounded hover:bg-blue-600"
+          rightContent={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z
+               M12 16v-4 m0-4h.01"
+              />
+            </svg>
+          }
+          title="View Details"
         />
       </div>
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">

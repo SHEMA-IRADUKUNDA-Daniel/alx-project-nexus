@@ -23,8 +23,21 @@ export default function MovieCard() {
               height={250}
               className="object-fill  rounded-sm"
             />
-            <p className="absolute top-1 right-1 bg-yellow-300  font-bold rounded-sm text-xs p-1">
-              {movie.quality}
+            <p className="absolute top-2 right-2 flex items-center gap-1 bg-black bg-opacity-70 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-md">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4 text-yellow-400"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 2.25l2.955 6.066 6.695.974-4.845 4.72 1.144 6.665L12 17.77l-6.0
+       3.18 1.145-6.665-4.845-4.72 6.695-.974L12 2.25z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              {movie.rating}
             </p>
             <div className="absolute  inset-0 hidden group-hover:flex items-center justify-center">
               <Image

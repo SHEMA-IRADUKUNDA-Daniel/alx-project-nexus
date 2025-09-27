@@ -10,6 +10,7 @@ export interface ButtonProp {
   className?: string;
   title?: string;
   onClick: () => void;
+  rightContent?: React.ReactNode;
 }
 export type HeaderProps = {
   onLoginClick: () => void;
@@ -54,6 +55,9 @@ export interface MovieStore {
   user: { name: string } | null;
   setUser: (user: { name: string } | null) => void;
   logout: () => void;
+  loginModalOpen: boolean;
+  openLoginModal: () => void;
+  closeLoginModal: () => void;
 }
 
 export interface WatchButtonProp {
@@ -71,3 +75,7 @@ export interface AuthStore {
   login: () => void;
   logout: () => void;
 }
+
+// export interface MovieDetailsProps {
+//   onLoginClick: () => void;
+// }

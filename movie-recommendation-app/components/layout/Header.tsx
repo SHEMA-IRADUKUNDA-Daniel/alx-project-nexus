@@ -122,7 +122,7 @@ export default function Header({ onLoginClick }: HeaderProps) {
           />
 
           {search && filteredMovies.length > 0 && (
-            <div className="absolute left-0 mt-2 md:w-full w-50 bg-white text-gray-800  rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
+            <div className="absolute right-0 mt-2 md:w-full w-60 bg-white text-gray-800  rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
               {filteredMovies.map((movie) => (
                 <Link
                   key={movie.id}
@@ -290,22 +290,30 @@ export default function Header({ onLoginClick }: HeaderProps) {
             </button>
 
             {profile && (
-              <div className="mt-4 space-y-4">
+              <div
+                onMouseLeave={() => setProfile(false)}
+                className="absolute mt-15 z-10 flex flex-col gap-6 bg-gray-800 border w-56 border-blue-500 right-0 rounded-lg p-6 font-bold"
+              >
+                <h1>Hello, User!</h1>
                 <Link
                   href="/profile"
-                  onClick={() => setMobileOpen(false)}
-                  className="block hover:text-blue-500"
+                  className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
                 >
                   Profile
                 </Link>
                 <Link
                   href="/favorite"
-                  onClick={() => setMobileOpen(false)}
-                  className="block hover:text-blue-500"
+                  className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
                 >
                   Favorites
                 </Link>
-                <button className="block text-red-500 hover:underline">
+                <button
+                  onClick={() => {
+                    logout();
+                    setProfile(false);
+                  }}
+                  className="flex justify-center items-center rounded-lg p-2 cursor-pointer hover:border border-blue-500 mt-4 text-red-500"
+                >
                   Log out
                 </button>
               </div>
