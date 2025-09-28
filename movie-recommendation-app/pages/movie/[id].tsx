@@ -1,13 +1,19 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useMovieStore from "@/components/common/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Movie } from "@/interfaces";
+import { easyApi } from "@/lib/tmdb";
+import MovieRecommendations from "@/components/common/MovieRecommendations";
 
 export default function MovieDetails() {
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const params = useParams();
   const movieId = Number(params?.id);
@@ -19,12 +25,39 @@ export default function MovieDetails() {
     favorites,
     toggleFavorite,
   } = useMovieStore();
-  const movie = movies.find((m) => m.id === movieId);
+  // const movie = movies.find((m) => m.id === movieId);
   const [commentText, setCommentText] = useState("");
   const user = useMovieStore((state) => state.user);
-  // const isLiked = likedMovies.includes(movie.id);
-  // const isFavorite = favorites.includes(movieId);
   const { openLoginModal } = useMovieStore();
+  useEffect(() => {
+    const loadMovieDetails = async () => {
+      if (!movieId) return;
+
+      try {
+        setLoading(true);
+        setError(null);
+
+        // First, try to find movie in store
+        const storeMovie = movies.find((m) => m.id === movieId);
+
+        if (storeMovie) {
+          setMovie(storeMovie);
+          setLoading(false);
+        } else {
+          // If not in store, fetch from TMDB API
+          const movieDetails = await easyApi.getMovieDetails(movieId);
+          setMovie(movieDetails);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Error loading movie details:", err);
+        setError("Failed to load movie details");
+        setLoading(false);
+      }
+    };
+
+    loadMovieDetails();
+  }, [movieId, movies]);
   const LikeIcon = ({ className }: { className?: string }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,11 +72,22 @@ export default function MovieDetails() {
       />
     </svg>
   );
-
-  if (!movie) {
+  if (loading) {
+    return (
+      <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading movie details...</p>
+        </div>
+      </div>
+    );
+  }
+  if (error || !movie) {
     return (
       <div className="p-6 text-center">
-        <h1 className="text-3xl font-medium mb-5">Movie not found</h1>
+        <h1 className="text-3xl font-medium mb-5">
+          {error || "Movie not found"}
+        </h1>
         <Link
           href="/home"
           className="bg-blue-500 py-2 mt-10 px-10 rounded-full font-bold text-white hover:bg-blue-600"
@@ -103,7 +147,7 @@ export default function MovieDetails() {
         <div className=" mb-6 md:mb-0">
           <button
             onClick={() => router.push("/home")}
-            className="absolute md:hidden left-6 bg-blue-500 p-2 rounded-full top-22 z-10 text-white"
+            className="absolute md:hidden left-6 bg-blue-500 p-2 rounded-full top-22 z-5 text-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -216,10 +260,10 @@ export default function MovieDetails() {
         </div>
       </div>
       <div className="flex flex-row items-center justify-between px-6 py-4 max-w-7xl mx-auto gap-10">
-        <h1 className="py-10 text-xl text-gray-700 font-bold">
-          {" "}
-          You may also like this
-        </h1>
+        <MovieRecommendations
+          currentMovieId={0} // Use 0 or -1 as placeholder
+          currentMovieGenres={[]}
+        />
       </div>
     </div>
   );

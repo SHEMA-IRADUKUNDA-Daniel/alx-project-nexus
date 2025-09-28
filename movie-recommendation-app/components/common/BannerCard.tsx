@@ -3,11 +3,28 @@ import Button from "./Button";
 import useMovieStore from "./store";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Movie } from "@/interfaces";
+import { easyApi } from "@/lib/tmdb";
 export default function Banner() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const movies = useMovieStore((state) => state.movies);
   const bannerMovies = movies.slice(0, 5);
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const loadMovies = async () => {
+      try {
+        const apiMovies = await easyApi.getPopularMovies();
+        setMovies(apiMovies);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to load movies:", error);
+        setLoading(false);
+      }
+    };
+
+    loadMovies();
+  }, []);
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % bannerMovies.length);
@@ -15,26 +32,31 @@ export default function Banner() {
     return () => clearInterval(timer);
   }, [bannerMovies.length]);
 
+  if (loading) return <div>Loading movies...</div>;
+  console.log(movies);
+
   const current = bannerMovies[index];
+
   return (
-    <div className="relative h-[400px] overflow-hidden">
+    <div className="relative h-[500px] overflow-hidden">
       <Image
         key={current.id}
         src={current.image}
         alt={current.title}
         fill
-        className="object-cover transition-opacity duration-700 ease-in-out"
+        className="object-cover  object-center transition-opacity duration-700 ease-in-out"
         priority
+        sizes="100vw"
+        onError={(e) => {
+          e.currentTarget.src = "/placeholder-movie.jpg";
+        }}
       />
 
-      <div
-        className="absolute inset-0 z-9 
-    bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_80%,rgba(0,0,0,0.9)_100%)]
-    before:absolute before:inset-0 before:bg-black/40 before:content-['']"
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
       <div
-        className="absolute inset-0 mt-30 z-10
+        className="absolute inset-0 mt-30 z-9
                       text-white max-w-7xl mx-auto px-6"
       >
         <h2 className="text-3xl font-bold mb-3">{current.title}</h2>

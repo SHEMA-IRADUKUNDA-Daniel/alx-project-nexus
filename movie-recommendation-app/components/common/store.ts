@@ -322,7 +322,7 @@ const useMovieStore = create<MovieStore>((set) => ({
   searchMovie: "",
   likedMovies: [],
   favorites: [],
-  user: null,
+  user: { name: "Shema Daniel" },
   loginModalOpen: false,
   setUser: (user) => set({ user }),
   logout: () => set({ user: null }),

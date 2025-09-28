@@ -59,6 +59,10 @@ export default function Header({ onLoginClick }: HeaderProps) {
 
   return (
     <header className="w-full bg-gray-800 text-white shadow-lg z-10">
+      <p className="bg-red-500 text-center">
+        If you are seeing this, that means my backend peer did not give me the
+        API in time(deadline in 1h left).
+      </p>
       <div className="flex flex-row items-center justify-between px-6 py-4 max-w-7xl mx-auto gap-10">
         <button className="flex-shrink-0 cursor-pointer" onClick={goToWelcome}>
           <h1 className="md:text-2xl text-xl font-bold text-blue-500">
@@ -265,58 +269,58 @@ export default function Header({ onLoginClick }: HeaderProps) {
           </nav>
 
           <div className="border-t border-gray-700 pt-4">
-            <button
-              onClick={() => {
-                onLoginClick();
-                setMobileOpen(false);
-              }}
-              className="flex items-center gap-2 hover:text-blue-500 w-full text-left"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 14c1.333 0 4 1.333 4 4v1H4v-1c0-2.667 2.667-4 4-4m4-8a4 4 0 100 8 4 4 0 000-8z"
-                />
-              </svg>
-              Login
-            </button>
-
-            {profile && (
-              <div
-                onMouseLeave={() => setProfile(false)}
-                className="absolute mt-15 z-10 flex flex-col gap-6 bg-gray-800 border w-56 border-blue-500 right-0 rounded-lg p-6 font-bold"
-              >
-                <h1>Hello, User!</h1>
-                <Link
-                  href="/profile"
-                  className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
-                >
-                  Profile
-                </Link>
-                <Link
-                  href="/favorite"
-                  className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
-                >
-                  Favorites
-                </Link>
+            {user ? (
+              <>
                 <button
-                  onClick={() => {
-                    logout();
-                    setProfile(false);
-                  }}
-                  className="flex justify-center items-center rounded-lg p-2 cursor-pointer hover:border border-blue-500 mt-4 text-red-500"
+                  onClick={() => setProfile((profile) => !profile)}
+                  className="flex cursor-pointer items-center gap-2 hover:text-blue-500 w-full text-left"
                 >
-                  Log out
+                  <span className="bg-white text-blue-500 rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    {user.name[0].toUpperCase()}
+                  </span>
+                  {user.name}
                 </button>
-              </div>
+
+                {profile && (
+                  <div className="  mt-4 z-10 flex flex-col gap-6 bg-gray-800 border w-56 border-blue-500 right-0 rounded-lg p-6 font-bold">
+                    <h1>Hello, {user.name}!</h1>
+                    <Link
+                      href="/profile"
+                      className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/favorite"
+                      className="flex justify-start gap-5 bg-gray-700 rounded-lg p-2 hover:border border-blue-500 cursor-pointer"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Favorites
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setProfile(false);
+                        setMobileOpen(false);
+                      }}
+                      className="flex justify-center items-center rounded-lg p-2 cursor-pointer hover:border border-blue-500 mt-4 text-red-500"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  onLoginClick();
+                  setMobileOpen(false);
+                }}
+                className="flex items-center gap-2 hover:text-blue-500 w-full text-left"
+              >
+                Login
+              </button>
             )}
           </div>
         </div>

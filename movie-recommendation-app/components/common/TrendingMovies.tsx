@@ -2,18 +2,38 @@
 import useMovieStore from "./store";
 import React from "react";
 import Image from "next/image";
-
 import Link from "next/link";
+import { easyApi } from "@/lib/tmdb";
+// import { Movie } from "@/interfaces";
+import { useState, useEffect } from "react";
 export default function MovieCard() {
   const movies = useMovieStore((state) => state.movies);
-  console.log(movies);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const loadMovies = async () => {
+  //     try {
+  //       const apiMovies = await easyApi.getNowPlayingMovies();
+  //       setMovies(apiMovies);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Failed to load movies:", error);
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   loadMovies();
+  // }, []);
+
+  // if (loading) return <div>Loading movies...</div>;
+  // console.log(movies);
 
   return (
     <div className="flex flex-wrap justify-center sm:justify-start">
       {movies.map((movie) => (
         <div
           key={movie.id}
-          className=" my-2 mx-2 md:max-w-40 max-w-35 relative cursor-pointer "
+          className=" my-2 mx-2 md:max-w-45 max-w-40 relative cursor-pointer "
         >
           <Link href={`/movie/${movie.id}`} className="relative  group">
             <Image
@@ -39,14 +59,10 @@ export default function MovieCard() {
               </svg>
               {movie.rating}
             </p>
-            <div className="absolute  inset-0 hidden group-hover:flex items-center justify-center">
-              <Image
-                src="/PlayButton.svg"
-                alt="Play"
-                width={40}
-                height={40}
-                className="pointer-events-none"
-              />
+            <div className="absolute bg-black/50 inset-0 hidden group-hover:flex items-center justify-center">
+              <p className="bg-blue-500 text-white p-3 rounded-lg font-bold">
+                View details
+              </p>
             </div>
           </Link>
           <h2 className=" font-bold text-gray-800 mt-3">{movie.title}</h2>
