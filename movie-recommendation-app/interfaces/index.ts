@@ -32,7 +32,7 @@ export interface Movie {
   title: string;
   year: number;
   duration: number;
-  quality: string;
+  // quality: string;
   image: string;
   description: string;
   genre: string[];
@@ -98,6 +98,7 @@ export interface TMDBMovie {
   original_title: string;
   popularity: number;
   video: boolean;
+  genres: TMDBGenre[];
 }
 
 export interface TMDBResponse {
@@ -126,4 +127,5 @@ export interface TMDBMovieDetails extends TMDBMovie {
     name: string;
     logo_path: string | null;
   }[];
+  comments: [];
 }

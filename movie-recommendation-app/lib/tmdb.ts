@@ -68,14 +68,18 @@ export const convertTMDBToMovie = (tmdbMovie: TMDBMovie): Movie => {
     title: tmdbMovie.title,
     year: new Date(tmdbMovie.release_date || "").getFullYear() || 0,
     duration: 120,
-    quality: "HD",
+    // quality: "HD",
     image: tmdbMovie.poster_path
       ? `https://image.tmdb.org/t/p/w500${tmdbMovie.poster_path}`
       : "/placeholder-movie.jpg",
     description: tmdbMovie.overview || "No description available",
-    genre: tmdbMovie.genre_ids
-      .map((id) => genreMap[id] || "Unknown")
-      .filter(Boolean),
+    genre: Array.isArray(tmdbMovie.genre_ids)
+      ? tmdbMovie.genre_ids
+          .map((id) => genreMap[id] || "Unknown")
+          .filter(Boolean)
+      : Array.isArray(tmdbMovie.genres) // if it's the details endpoint
+        ? tmdbMovie.genres.map((g: { id: number; name: string }) => g.name)
+        : [],
     cast: [],
     likes: Math.floor(tmdbMovie.vote_count / 100),
     comments: [],

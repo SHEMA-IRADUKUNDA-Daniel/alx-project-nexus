@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "./Button";
-import useMovieStore from "./store";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Movie } from "@/interfaces";

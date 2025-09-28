@@ -49,7 +49,7 @@ export default function Favorite() {
               className="bg-white rounded shadow hover:shadow-lg transition relative"
             >
               <p className="absolute top-1 right-1  bg-white rounded-sm text-xs p-1">
-                {movie.quality}
+                {/* {movie.quality} */}
               </p>
               <Image
                 src={movie.image}

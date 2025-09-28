@@ -1,32 +1,34 @@
 "use client";
-import useMovieStore from "./store";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { easyApi } from "@/lib/tmdb";
 // import { Movie } from "@/interfaces";
 import { useState, useEffect } from "react";
+import { Movie } from "@/interfaces";
 export default function MovieCard() {
-  const movies = useMovieStore((state) => state.movies);
-  // const [loading, setLoading] = useState(true);
+  // const movies = useMovieStore((state) => state.movies);
+  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-  // useEffect(() => {
-  //   const loadMovies = async () => {
-  //     try {
-  //       const apiMovies = await easyApi.getNowPlayingMovies();
-  //       setMovies(apiMovies);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Failed to load movies:", error);
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const loadMovies = async () => {
+      try {
+        const apiMovies = await easyApi.getNowPlayingMovies();
+        setMovies(apiMovies);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to load movies:", error);
+        setLoading(false);
+      }
+    };
 
-  //   loadMovies();
-  // }, []);
+    loadMovies();
+  }, []);
 
-  // if (loading) return <div>Loading movies...</div>;
-  // console.log(movies);
+  if (loading) return <div>Loading movies...</div>;
+  console.log(movies);
 
   return (
     <div className="flex flex-wrap justify-center sm:justify-start">

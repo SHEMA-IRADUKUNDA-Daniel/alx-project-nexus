@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import Search from "../common/Search";
 import { useRouter } from "next/router";
 import { HeaderProps } from "@/interfaces";
+import { searchTMDBMovies } from "@/lib/tmdbSearch";
+import { Movie } from "@/interfaces";
 
 import useMovieStore from "../common/store";
 
@@ -19,6 +21,8 @@ export default function Header({ onLoginClick }: HeaderProps) {
   const user = useMovieStore((state) => state.user);
   // const setUser = useMovieStore((state) => state.setUser);
   const logout = useMovieStore((state) => state.logout);
+  const [apiResults, setApiResults] = useState<Movie[]>([]); // 🔑
+  const [loading, setLoading] = useState(false);
 
   function goToWelcome() {
     setTimeout(() => {
@@ -34,6 +38,25 @@ export default function Header({ onLoginClick }: HeaderProps) {
   const countryRef = useRef<HTMLLIElement>(null);
   const moviesRef = useRef<HTMLLIElement>(null);
   const profileRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (search.trim().length === 0) {
+        setApiResults([]);
+        return;
+      }
+      try {
+        setLoading(true);
+        const results = await searchTMDBMovies(search);
+        setApiResults(results);
+      } catch (e) {
+        console.error(e);
+        setApiResults([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -61,7 +84,8 @@ export default function Header({ onLoginClick }: HeaderProps) {
     <header className="w-full bg-gray-800 text-white shadow-lg z-10">
       <p className="bg-red-500 text-center">
         If you are seeing this, that means my backend peer did not give me the
-        API in time(deadline in 1h left).
+        API in time, I had to use another, if everything is not working check
+        the video(deadline in 1h left).
       </p>
       <div className="flex flex-row items-center justify-between px-6 py-4 max-w-7xl mx-auto gap-10">
         <button className="flex-shrink-0 cursor-pointer" onClick={goToWelcome}>
@@ -125,19 +149,20 @@ export default function Header({ onLoginClick }: HeaderProps) {
             placeholder="Search movies..."
           />
 
-          {search && filteredMovies.length > 0 && (
+          {!loading && apiResults.length > 0 && (
             <div className="absolute right-0 mt-2 md:w-full w-60 bg-white text-gray-800  rounded-lg shadow-lg max-h-60 overflow-y-auto z-30">
-              {filteredMovies.map((movie) => (
-                <Link
-                  key={movie.id}
-                  href={`/movie/${movie.id}`}
-                  className="block px-4 py-2 hover:bg-gray-100"
-                  onClick={() => setSearchMovie("")}
-                >
-                  <p className="font-medium">{movie.title}</p>
-                  <p className="text-sm text-gray-500">{movie.year}</p>
-                </Link>
-              ))}
+              {!loading &&
+                apiResults.map((movie) => (
+                  <Link
+                    key={movie.id}
+                    href={`/movie/${movie.id}`}
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setSearchMovie("")}
+                  >
+                    <p className="font-medium">{movie.title}</p>
+                    <p className="text-sm text-gray-500">{movie.year}</p>
+                  </Link>
+                ))}
             </div>
           )}
 

@@ -2,74 +2,54 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Movie } from "@/interfaces";
+import { Movie, MovieRecommendationsProps } from "@/interfaces";
 import useMovieStore from "@/components/common/store";
-
-interface MovieRecommendationsProps {
-  currentMovieId: number;
-  currentMovieGenres?: string[];
-}
+import { getTMDBRecommendations } from "@/lib/tmdbRecommendations";
+import { TMDBMovieDetails } from "@/interfaces";
 
 export default function MovieRecommendations({
   currentMovieId,
-  currentMovieGenres = [],
 }: MovieRecommendationsProps) {
   const movies = useMovieStore((state) => state.movies);
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getRecommendations = () => {
-      const otherMovies = movies.filter((movie) => movie.id !== currentMovieId);
+    const fetchRecommendations = async () => {
+      if (!currentMovieId) return;
+      try {
+        setLoading(true);
 
-      if (otherMovies.length === 0) {
+        const results: TMDBMovieDetails[] =
+          await getTMDBRecommendations(currentMovieId);
+
+        const mapped: Movie[] = results.map((m) => ({
+          id: m.id,
+          title: m.title,
+          image: m.poster_path
+            ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+            : "/placeholder.jpg",
+          rating: m.vote_average,
+          year: m.release_date ? Number(m.release_date.slice(0, 4)) : 0,
+          duration: m.runtime ?? 0, // Optional, TMDB may not return runtime here
+          genre: m.genre_ids?.map(String) ?? [],
+          description: m.overview || "",
+          likes: m.vote_count,
+          comments: [],
+          cast: [],
+        }));
+
+        setRecommendations(mapped.slice(0, 6));
+      } catch (e) {
+        console.error("Failed to fetch recommendations:", e);
         setRecommendations([]);
-        return;
+      } finally {
+        setLoading(false);
       }
-
-      let recommendedMovies: Movie[] = [];
-
-      if (currentMovieGenres.length > 0) {
-        const sameGenreMovies = otherMovies.filter((movie) =>
-          movie.genre.some((genre) => currentMovieGenres.includes(genre))
-        );
-        recommendedMovies = [...sameGenreMovies];
-      }
-
-      if (recommendedMovies.length < 6) {
-        const highRatedMovies = otherMovies
-          .filter(
-            (movie) => !recommendedMovies.some((rec) => rec.id === movie.id)
-          )
-          .sort((a, b) => b.rating - a.rating);
-
-        recommendedMovies = [...recommendedMovies, ...highRatedMovies];
-      }
-
-      if (recommendedMovies.length < 6) {
-        const popularMovies = otherMovies
-          .filter(
-            (movie) => !recommendedMovies.some((rec) => rec.id === movie.id)
-          )
-          .sort((a, b) => (b.likes || 0) - (a.likes || 0));
-
-        recommendedMovies = [...recommendedMovies, ...popularMovies];
-      }
-
-      if (recommendedMovies.length < 6) {
-        const remainingMovies = otherMovies
-          .filter(
-            (movie) => !recommendedMovies.some((rec) => rec.id === movie.id)
-          )
-          .sort(() => Math.random() - 0.5);
-
-        recommendedMovies = [...recommendedMovies, ...remainingMovies];
-      }
-
-      setRecommendations(recommendedMovies.slice(0, 6));
     };
 
-    getRecommendations();
-  }, [currentMovieId, currentMovieGenres, movies]);
+    fetchRecommendations();
+  }, [currentMovieId]);
 
   if (movies.length <= 1) {
     return (
@@ -86,7 +66,7 @@ export default function MovieRecommendations({
     );
   }
 
-  if (recommendations.length === 0) {
+  if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
@@ -97,6 +77,10 @@ export default function MovieRecommendations({
         </div>
       </div>
     );
+  }
+
+  if (recommendations.length === 0) {
+    return null; // No recommendations
   }
 
   return (
@@ -112,15 +96,15 @@ export default function MovieRecommendations({
         {recommendations.map((movie) => (
           <div
             key={movie.id}
-            className=" my-2 mx-2 md:max-w-45 max-w-40 relative cursor-pointer "
+            className="my-2 mx-2 md:max-w-45 max-w-40 relative cursor-pointer"
           >
-            <Link href={`/movie/${movie.id}`} className="relative  group">
+            <Link href={`/movie/${movie.id}`} className="relative group">
               <Image
                 src={movie.image}
-                alt="poster"
+                alt={movie.title}
                 width={200}
                 height={250}
-                className="object-fill  rounded-sm"
+                className="object-fill rounded-sm"
               />
               <p className="absolute top-2 right-2 flex items-center gap-1 bg-black bg-opacity-70 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-md">
                 <svg
@@ -131,8 +115,7 @@ export default function MovieRecommendations({
                 >
                   <path
                     fillRule="evenodd"
-                    d="M12 2.25l2.955 6.066 6.695.974-4.845 4.72 1.144 6.665L12 17.77l-6.0
-                 3.18 1.145-6.665-4.845-4.72 6.695-.974L12 2.25z"
+                    d="M12 2.25l2.955 6.066 6.695.974-4.845 4.72 1.144 6.665L12 17.77l-6.03 3.18 1.145-6.665-4.845-4.72 6.695-.974L12 2.25z"
                     clipRule="evenodd"
                   />
                 </svg>
@@ -144,15 +127,14 @@ export default function MovieRecommendations({
                 </p>
               </div>
             </Link>
-            <h2 className=" font-bold text-gray-800 mt-3">{movie.title}</h2>
-            <div className="flex gap-2 text-xs  text-gray-700 font-medium items-center mt-3">
+            <h2 className="font-bold text-gray-800 mt-3">{movie.title}</h2>
+            <div className="flex gap-2 text-xs text-gray-700 font-medium items-center mt-3">
               <p>{movie.year}</p>
               <p>-</p>
               <p>{movie.duration} min</p>
             </div>
           </div>
         ))}
-        ,
       </div>
 
       <div className="text-center mt-8">
